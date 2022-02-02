@@ -19,7 +19,10 @@ export class EditBookComponent implements OnInit {
 
   ngOnInit() {
     const bookID: number = parseInt(this.route.snapshot.params.id);
-    this.selectedBook = this.dataService.getBookById(bookID);
+    this.dataService.getBookById(bookID).subscribe(
+      (data) => this.selectedBook = data,
+      (err: any) => console.log(err),
+    );
   }
 
   setMostPopular(): void {
