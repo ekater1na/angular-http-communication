@@ -1,0 +1,25 @@
+import {Component, OnInit} from '@angular/core';
+
+import {Reader} from 'app/models/reader';
+
+@Component({
+  selector: 'app-add-reader',
+  templateUrl: './add-reader.component.html',
+  styles: []
+})
+export class AddReaderComponent implements OnInit {
+
+  constructor() {
+  }
+
+  ngOnInit() {
+  }
+
+  saveReader(formValues: any): void {
+    const newReader: Reader = formValues as Reader;
+    newReader.readerID = 0;
+    console.log(newReader);
+    console.warn('Save new reader not yet implemented.');
+  }
+
+}

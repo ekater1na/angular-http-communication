@@ -1,0 +1,36 @@
+<div class="col-lg-5">
+  <div class="well bs-component">
+    <form class="form-horizontal">
+      <fieldset>
+        <legend>Edit Book</legend>
+        <div class="form-group">
+          <label class="col-lg-3 control-label" for="inputTitle">Title</label>
+          <div class="col-lg-8">
+            <input [(ngModel)]="selectedBook && selectedBook.title" class="form-control" id="inputTitle" name="title"
+                   placeholder="Title" type="text">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label" for="inputAuthor">Author</label>
+          <div class="col-lg-8">
+            <input [(ngModel)]="selectedBook && selectedBook.author" class="form-control" id="inputAuthor" name="author"
+                   placeholder="Author" type="text">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label" for="inputYear">Year</label>
+          <div class="col-lg-8">
+            <input [(ngModel)]="selectedBook && selectedBook.publicationYear" class="form-control" id="inputYear"
+                   name="publicationYear" placeholder="Year Published" type="text">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-8 col-lg-offset-3">
+            <button (click)="saveChanges()" class="btn btn-primary" type="button">Save</button>
+            <button (click)="setMostPopular()" class="btn btn-success" type="button">Set As Most Popular</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
