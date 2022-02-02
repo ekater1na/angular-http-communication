@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {allBooks, allReaders} from 'app/data';
 import {Reader} from 'app/models/reader';
 import {Book} from 'app/models/book';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {OldBook} from '../models/old-book';
 import {map, tap} from 'rxjs/operators';
@@ -53,6 +53,26 @@ export class DataService {
         }) as OldBook),
         tap(classicBook => console.log(classicBook))
       );
+  }
+
+  addBook(newBook: Book): Observable<Book> {
+    return this.http.post<Book>('/api/books', newBook, {
+      headers: new HttpHeaders({
+        'Content-type': 'application/json'
+      })
+    });
+  }
+
+  updateBook(updatedBook: Book): Observable<void> {
+    return this.http.put<void>(`/api/books/${updatedBook.bookID}`, updatedBook, {
+      headers: new HttpHeaders({
+        'Content-type': 'application/json'
+      })
+    });
+  }
+
+  deleteBook(bookID: number): Observable<void> {
+    return this.http.delete<void>(`/api/books/${bookID}`);
   }
 
 }
