@@ -24,7 +24,10 @@ describe('DataService Tests', () => {
 
     dataService = TestBed.get(DataService);
     httpTestingController = TestBed.get(HttpTestingController);
+  });
 
+  afterEach(() => {
+    httpTestingController.verify();
   });
 
   it('should GET all books', () => {
@@ -39,11 +42,25 @@ describe('DataService Tests', () => {
     expect(bookRequest.request.method).toEqual('GET');
 
     bookRequest.flush(testBooks);
+  });
+  it('should return a BookTrackerError', () => {
+    dataService.getAllBooks()
+      .subscribe(
+        () => fail('this should have been an error'),
+        (err: BookTrackerError) => {
+          expect(err.errorNumber).toEqual(100);
+          expect(err.friendlyMessage).toEqual('An error occurred retrieving data');
+        }
+      );
+
+    const bookRequest: TestRequest = httpTestingController.expectOne('/api/books');
+
+    bookRequest.flush('error', {
+      status: 500,
+      statusText: 'Server Error'
+    });
 
     httpTestingController.verify();
-  });
-  it('test 2', () => {
-
   });
 
 });
