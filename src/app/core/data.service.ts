@@ -3,11 +3,12 @@ import {Injectable} from '@angular/core';
 import {allBooks, allReaders} from 'app/data';
 import {Reader} from 'app/models/reader';
 import {Book} from 'app/models/book';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpContext, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {OldBook} from '../models/old-book';
 import {catchError, map, tap} from 'rxjs/operators';
 import {BookTrackerError} from '../models/bookTrackerError';
+import {CONTENT_TYPE} from './add-header.interceptor';
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +42,9 @@ export class DataService {
 
   getAllBooks(): Observable<Book[] | BookTrackerError> {
     console.log('Getting all books from a server');
-    return this.http.get<Book[]>('/api/books')
+    return this.http.get<Book[]>('/api/books', {
+      context: new HttpContext().set(CONTENT_TYPE, 'application/xml')
+    })
       .pipe(
         catchError(err => DataService.handleHttpError(err))
       );
