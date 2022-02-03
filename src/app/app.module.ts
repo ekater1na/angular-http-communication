@@ -10,7 +10,8 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {EditBookComponent} from './edit-book/edit-book.component';
 import {EditReaderComponent} from './edit-reader/edit-reader.component';
 import {BookTrackerErrorHandlerService} from './core/book-tracker-error-handler.service';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {AddHeaderInterceptor} from './core/add-header.interceptor';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {HttpClientModule} from '@angular/common/http';
     AddReaderComponent
   ],
   providers: [
-    {provide: ErrorHandler, useClass: BookTrackerErrorHandlerService}
+    {provide: ErrorHandler, useClass: BookTrackerErrorHandlerService},
+    {provide: HTTP_INTERCEPTORS, useClass: AddHeaderInterceptor, multi: true}
   ],
   imports: [
     BrowserModule,
